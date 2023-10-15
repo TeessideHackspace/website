@@ -1,7 +1,6 @@
 "use client";
 // @ts-expect-error
 import { experimental_useFormState as useFormState } from "react-dom";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { signup } from "@/app/members/signup/actions";
 
 import React from "react";
