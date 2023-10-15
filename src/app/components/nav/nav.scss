@@ -1,0 +1,30 @@
+@import '../../variables.scss';
+.navbar {
+    background: #333;
+    .container-fluid {
+        padding-left: 0;
+    }
+    padding: 0;
+    .nav-item {
+        a {
+            color: white;
+        }
+        &:hover {
+            background: black;
+        }
+        padding: 8px;
+        &.active {
+            background: $primary;
+            
+            &:hover {
+                background: $primary-hover;
+            }
+            a {
+                color: white;
+                background: none;
+            }
+           
+        }
+    }
+    
+}

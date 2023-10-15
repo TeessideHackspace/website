@@ -1,0 +1,12 @@
+{{#each text}}{{this}}\n{{/each}}
+\n
+\n
+{{#if button}}
+{{button.label}}\n
+{{button.link}}
+\n
+\n
+{{#each button.afterText}}
+{{this}}\n
+{{/each}}
+{{/if}}
