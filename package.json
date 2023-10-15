@@ -25,6 +25,7 @@
     "sass": "^1.69.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.6.3",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
