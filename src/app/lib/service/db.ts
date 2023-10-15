@@ -45,7 +45,13 @@ export interface UserDynamoModel extends UserDynamoKey {
 export class DataAccess {
   private client: DynamoDBDocument;
   constructor() {
-    const dynamoClient = new DynamoDBClient({ region: "eu-west-1" });
+    const dynamoClient = new DynamoDBClient({
+      credentials: {
+        accessKeyId: process.env.HS_AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.HS_AWS_SECRET_ACCESS_KEY!,
+      },
+      region: process.env.HS_AWS_REGION!,
+    });
     this.client = DynamoDBDocument.from(dynamoClient);
   }
 

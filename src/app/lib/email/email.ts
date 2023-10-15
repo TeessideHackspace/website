@@ -27,7 +27,13 @@ export interface EmailBody {
 export class EmailClient {
   private ses: SESClient;
   constructor() {
-    this.ses = new SESClient();
+    this.ses = new SESClient({
+      credentials: {
+        accessKeyId: process.env.HS_AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.HS_AWS_SECRET_ACCESS_KEY!,
+      },
+      region: process.env.HS_AWS_REGION!,
+    });
   }
   welcome(name: string, email: string) {
     console.log("Sending welcome email to: " + email);
