@@ -5,6 +5,7 @@ const ID_CLAIM = "sub";
 export async function getUser() {
   const session = await getSession();
   if (!session || !session.user) {
+    console.warn("No session or user", session);
     return;
   }
   return session.user[ID_CLAIM];
@@ -13,6 +14,7 @@ export async function getUser() {
 export async function getEmail() {
   const session = await getSession();
   if (!session || !session.email) {
+    console.warn("No session or user", session);
     return;
   }
   return session.user.email;

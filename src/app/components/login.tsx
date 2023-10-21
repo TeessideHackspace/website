@@ -1,10 +1,10 @@
 import React from "react";
-import { getSession } from "@auth0/nextjs-auth0";
+import { getUser } from "../utils/session";
 
 const Login = async () => {
-  const session = await getSession();
+  const userId = await getUser();
 
-  const link = session?.user ? (
+  const link = userId ? (
     <a className="btn btn-outline-light" href="/api/auth/logout">
       Logout
     </a>
