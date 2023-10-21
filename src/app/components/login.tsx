@@ -1,18 +1,17 @@
 import React from "react";
-import Link from "next/link";
 import { getSession } from "@auth0/nextjs-auth0";
 
 const Login = async () => {
   const session = await getSession();
 
   const link = session?.user ? (
-    <Link className="btn btn-outline-light" href="/api/auth/logout">
+    <a className="btn btn-outline-light" href="/api/auth/logout">
       Logout
-    </Link>
+    </a>
   ) : (
-    <Link className="btn btn-outline-light" href="/api/auth/login">
+    <a className="btn btn-outline-light" href="/api/auth/login">
       Login
-    </Link>
+    </a>
   );
 
   return <div className="d-flex">{link}</div>;

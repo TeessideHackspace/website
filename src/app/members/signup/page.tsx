@@ -1,5 +1,5 @@
 "use server";
-import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { MembershipApiService } from "../../lib/service/service";
 import Header from "../../components/header/header";
 import { redirect } from "next/navigation";

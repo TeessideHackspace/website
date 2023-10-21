@@ -1,4 +1,3 @@
-import { getSession } from "@auth0/nextjs-auth0";
 import { redirect } from "next/navigation";
 import Header from "../components/header/header";
 import Link from "next/link";

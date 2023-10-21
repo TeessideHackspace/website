@@ -1,6 +1,4 @@
 "use server";
-
-import { getSession } from "@auth0/nextjs-auth0";
 import { MembershipApiService } from "../../lib/service/service";
 import { redirect } from "next/navigation";
 import { getEmail, getUser } from "../../utils/session";
