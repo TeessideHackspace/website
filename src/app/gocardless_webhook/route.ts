@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
         await service.handlePaymentEvent(event);
       }
     }
+    return new Response("OK", { status: 200 });
   } catch (e) {
     if (e instanceof InvalidSignatureError) {
       return new Response("Unauthorized", { status: 401 });
