@@ -13,8 +13,8 @@ export async function getUser() {
 
 export async function getEmail() {
   const session = await getSession();
-  if (!session || !session.email) {
-    console.warn("No session or user", session);
+  if (!session || !session.user.email) {
+    console.warn("No session or email", session);
     return;
   }
   return session.user.email;
