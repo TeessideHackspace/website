@@ -18,6 +18,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV AUTH0_SECRET placeholder
+ENV AUTH0_DOMAIN domain.eu.auth0.com
+ENV AUTH0_CLIENT_ID auth0clientidauth0clientidauth0c
+ENV AUTH0_CLIENT_SECRET abcdefghilklmnopqrstuvwxyz123456790abdefghijklmnopqrstuvwxyz0123
+ENV AUTH0_BASE_URL http://localhost:3000
+ENV AUTH0_ISSUER_BASE_URL https://domain.eu.auth0.com
 
 RUN npm run build
 
