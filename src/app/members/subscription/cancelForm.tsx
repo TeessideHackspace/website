@@ -7,11 +7,21 @@ import { cancelSubscription } from "./actions";
 
 const initialState = {
   errors: [],
+  succeeded: false,
 };
 
 const CancelSubscriptionForm = () => {
   const [state, formAction] = useFormState(cancelSubscription, initialState);
-
+  function getSuccessMessage() {
+    if (state.succeeded) {
+      return (
+        <div className="alert alert-success">
+          Subscription successfully cancelled
+        </div>
+      );
+    }
+    return null;
+  }
   return (
     <form action={formAction} className="">
       <div>
@@ -20,6 +30,7 @@ const CancelSubscriptionForm = () => {
             {error}
           </div>
         ))}
+        {getSuccessMessage()}
       </div>
       <fieldset>
         <legend>Cancel Subscription</legend>

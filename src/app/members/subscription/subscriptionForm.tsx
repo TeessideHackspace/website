@@ -7,6 +7,7 @@ import { createSubscription, updateSubscription } from "./actions";
 
 const initialState = {
   errors: [],
+  succeeded: false,
 };
 
 const SubscriptionForm = ({
@@ -20,6 +21,12 @@ const SubscriptionForm = ({
 }) => {
   const actionImpl =
     action === "createSubscription" ? createSubscription : updateSubscription;
+  function getSuccessMessage() {
+    if (state.succeeded) {
+      return <div className="alert alert-success">{actionLabel} succesful</div>;
+    }
+    return null;
+  }
   const [state, formAction] = useFormState(actionImpl, initialState);
 
   return (
@@ -30,6 +37,7 @@ const SubscriptionForm = ({
             {error}
           </div>
         ))}
+        {getSuccessMessage()}
       </div>
       <fieldset className="form-group">
         <legend>Subscription</legend>

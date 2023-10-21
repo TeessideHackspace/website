@@ -46,6 +46,8 @@ export const createSubscription = async (state: any, formData: FormData) => {
       subscription_amount: amountInPounds,
     });
     await service.createSubscriptionFromSavedAmount(userId);
+    state.succeeded = true;
+    state.errors = [];
     return state;
   } catch (e) {
     if (e instanceof Error) {
@@ -73,6 +75,8 @@ export const updateSubscription = async (state: any, formData: FormData) => {
       subscription.id!,
       amountInPounds
     );
+    state.succeeded = true;
+    state.errors = [];
     return state;
   } catch (e) {
     if (e instanceof Error) {
@@ -93,6 +97,8 @@ export const cancelSubscription = async (state: any, formData: FormData) => {
     }
     const subscription = await service.getActiveSubscriptionForUser(userId);
     await service.gocardless.cancelSubscription(subscription.id!);
+    state.succeeded = true;
+    state.errors = [];
     return state;
   } catch (e) {
     if (e instanceof Error) {
