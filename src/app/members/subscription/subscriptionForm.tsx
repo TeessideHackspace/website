@@ -23,7 +23,9 @@ const SubscriptionForm = ({
     action === "createSubscription" ? createSubscription : updateSubscription;
   function getSuccessMessage() {
     if (state.succeeded) {
-      return <div className="alert alert-success">{actionLabel} succesful</div>;
+      return (
+        <div className="alert alert-success">{actionLabel} successful</div>
+      );
     }
     return null;
   }

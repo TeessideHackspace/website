@@ -46,11 +46,14 @@ export default withPageAuthRequired(
 
       if (!activeSubscriptions.length) {
         return (
-          <SubscriptionForm
-            initialValue={hackspaceUser!.subscription_amount}
-            action="createSubscription"
-            actionLabel="Subscribe"
-          ></SubscriptionForm>
+          <div>
+            <div className="alert alert-secondary">{`You don't currently have an active subscription, would you like to start one?`}</div>
+            <SubscriptionForm
+              initialValue={hackspaceUser!.subscription_amount}
+              action="createSubscription"
+              actionLabel="Subscribe"
+            ></SubscriptionForm>
+          </div>
         );
       }
 
