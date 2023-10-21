@@ -127,6 +127,12 @@ export class DataAccess {
     if (!result || !result.Items) {
       return [];
     }
+    result.Items = result.Items.map((item) => {
+      if (item.roles) {
+        item.roles = [...item.roles];
+      }
+      return item;
+    });
     return result.Items as unknown as UserDynamoModel[];
   }
 }
