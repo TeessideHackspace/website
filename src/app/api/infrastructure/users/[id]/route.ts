@@ -4,7 +4,8 @@ import { useParams } from "next/navigation";
 
 export async function GET(request: NextRequest) {
   const params = useParams();
-  const authHeader = request.headers.get("Authorization");
+  let authHeader = request.headers.get("Authorization") || "";
+  authHeader = authHeader.toLowerCase().replace("bearer ", "");
   if (!authHeader || authHeader !== process.env.INFRASTRUCTURE_SHARED_KEY) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -36,5 +37,10 @@ export async function GET(request: NextRequest) {
       }
     );
   }
-  return Response.json(user);
+  return Response.json({
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    roles: user.roles,
+  });
 }
