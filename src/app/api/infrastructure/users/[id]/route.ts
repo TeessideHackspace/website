@@ -1,9 +1,10 @@
 import { NextRequest } from "next/server";
 import { MembershipApiService } from "../../../../lib/service/service";
-import { useParams } from "next/navigation";
 
-export async function GET(request: NextRequest) {
-  const params = useParams();
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   let authHeader = request.headers.get("Authorization") || "";
   authHeader = authHeader.toLowerCase().replace("bearer ", "");
   if (!authHeader || authHeader !== process.env.INFRASTRUCTURE_SHARED_KEY) {
