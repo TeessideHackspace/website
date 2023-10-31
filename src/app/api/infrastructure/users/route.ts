@@ -1,7 +1,8 @@
 import { MembershipApiService } from "../../../lib/service/service";
 
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("Authorization");
+  let authHeader = request.headers.get("Authorization") || "";
+  authHeader = authHeader.toLowerCase().replace("bearer ", "");
   if (!authHeader || authHeader !== process.env.INFRASTRUCTURE_SHARED_KEY) {
     return new Response("Unauthorized", { status: 401 });
   }
