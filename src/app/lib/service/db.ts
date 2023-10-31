@@ -16,6 +16,8 @@ export interface RfidDynamoKey {
 }
 export interface RfidTag extends RfidDynamoKey {
   user: string;
+  name?: string;
+  created_date?: string;
 }
 
 export interface UserDynamoKey {
@@ -86,15 +88,24 @@ export class DataAccess {
     return this.getUser(member.id);
   }
 
-  async addRifdTag(userId: string, rfid: string) {
-    const result = await this.client.put({
+  async addRifdTag(tag: RfidTag): Promise<RfidTag | undefined> {
+    await this.client.put({
       TableName: RFID_TABLE,
       Item: {
-        id: rfid,
-        user: userId,
+        ...tag,
       },
     });
-    return result;
+    return this.getRfidTag(tag.id);
+  }
+
+  async deleteRfidTag(id: string): Promise<Boolean | undefined> {
+    await this.client.delete({
+      TableName: RFID_TABLE,
+      Key: {
+        id,
+      },
+    });
+    return true;
   }
 
   async getRfidTag(rfid: string): Promise<RfidTag | undefined> {
@@ -134,5 +145,24 @@ export class DataAccess {
       return item;
     });
     return result.Items as unknown as UserDynamoModel[];
+  }
+
+  async getRfidsForUser(userId: string): Promise<RfidTag[]> {
+    console.log("getRfidsForUser", userId);
+    const result = await this.client.scan({
+      TableName: RFID_TABLE,
+      ScanFilter: {
+        user: {
+          ComparisonOperator: "EQ",
+          AttributeValueList: [userId],
+        },
+      },
+    });
+    console.log(result);
+
+    if (!result || !result.Items) {
+      return [];
+    }
+    return result.Items as unknown as RfidTag[];
   }
 }

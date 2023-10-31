@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+.scan-button {
+   &:hover {
+        svg {
+            fill: white;
+        }
+   }
+   svg {
+        fill: $primary;
+   }
+    
+}
