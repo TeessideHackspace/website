@@ -3,11 +3,11 @@ import { MembershipApiService } from "../../lib/service/service";
 import Header from "../../components/header/header";
 import Link from "next/link";
 import { headers } from "next/headers";
-import { getUser } from "../../utils/session";
+import { getSession } from "../../api/auth/auth";
 
 export default async function Page() {
-  const userId = await getUser();
-  if (userId) {
+  const user = await getSession();
+  if (user) {
     const service = new MembershipApiService();
     const headersList = headers();
     const referer = headersList.get("referer");
@@ -22,7 +22,7 @@ export default async function Page() {
       destinationUrl = `http://${host}${redirectPage}`;
     }
     const redirectUrl = await service.gocardlessRedirectUrl(
-      userId,
+      user.id,
       destinationUrl
     );
     if (redirectUrl) {

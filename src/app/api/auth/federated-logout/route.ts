@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
   const token = await getToken({ req });
   if (!token && process.env.NEXTAUTH_URL) {
     console.warn("No JWT token found when calling /federated-logout endpoint,");
