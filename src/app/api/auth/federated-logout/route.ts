@@ -19,9 +19,14 @@ export async function GET(req: NextRequest) {
       post_logout_redirect_uri: process.env.NEXTAUTH_URL as string,
     });
     const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout?${endsessionParams}`;
+
     cookies().delete("next-auth.session-token");
-    cookies().delete("__Secure-next-auth.session-token");
-    return NextResponse.redirect(url, 302);
+    cookies().delete({
+      name: "__Secure-next-auth.session-token",
+      secure: true,
+    });
+
+    return Response.redirect(url, 302);
   }
   return NextResponse.redirect(process.env.NEXTAUTH_URL as string, 302);
 }
