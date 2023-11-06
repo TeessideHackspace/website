@@ -1,12 +1,16 @@
 "use server";
 
 import { MembershipApiService } from "../../lib/service/service";
-import { getUser } from "../../utils/session";
+import { getSession } from "../../api/auth/auth";
 
 export const addRfid = async (state: any, formData: FormData) => {
   try {
     const service = new MembershipApiService();
-    const user = await getUser();
+    const user = await getSession();
+    if (!user) {
+      state.errors = ["You must be logged in to add an RFID"];
+      return state;
+    }
     let name = formData.get("name")?.toString();
     if (!name) {
       name = "Keyfob";
@@ -21,7 +25,7 @@ export const addRfid = async (state: any, formData: FormData) => {
     const rfid = await service.dbClient.addRifdTag({
       id,
       name,
-      user,
+      user: user.id,
       created_date: date.toISOString(),
     });
     if (rfid) {
@@ -44,7 +48,11 @@ export const addRfid = async (state: any, formData: FormData) => {
 export const deleteRfid = async (state: any, formData: FormData) => {
   try {
     const service = new MembershipApiService();
-    const user = await getUser();
+    const user = await getSession();
+    if (!user) {
+      state.errors = ["You must be logged in to delete an RFID"];
+      return state;
+    }
     const id = formData.get("id")?.toString();
     if (!id) {
       state.errors = ["RFID is required"];
@@ -55,7 +63,7 @@ export const deleteRfid = async (state: any, formData: FormData) => {
       state.errors = ["RFID not found"];
       return state;
     }
-    if (existingRfid.user !== user) {
+    if (existingRfid.user !== user.id) {
       state.errors = ["RFID not found"];
       return state;
     }

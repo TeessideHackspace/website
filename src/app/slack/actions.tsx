@@ -5,7 +5,6 @@ export const slackSignup = async (state: any, formData: FormData) => {
     if (!email) {
       return { errors: ["Email is required"] };
     }
-    console.log(email);
     const baseURL = "https://slack.com/api/users.admin.invite";
     const toSlack = `email=${encodeURIComponent(email)}&token=${
       process.env.SLACK_TOKEN
@@ -18,7 +17,6 @@ export const slackSignup = async (state: any, formData: FormData) => {
     if (!json.ok) {
       return { errors: ["Failed to send invite"] };
     }
-    console.log(json);
     state.succeeded = true;
     state.errors = [];
     return state;

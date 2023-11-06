@@ -1,7 +1,7 @@
 "use server";
+import { getSession } from "../../api/auth/auth";
 import { MembershipApiService } from "../../lib/service/service";
 import { redirect } from "next/navigation";
-import { getEmail, getUser } from "../../utils/session";
 
 const MIN_MONTH = 5;
 
@@ -37,22 +37,21 @@ function isRequestValid(user: any) {
 export const signup = async (state: any, formData: FormData) => {
   state.errors = [];
   const service = new MembershipApiService();
-  const userId = await getUser();
-  const email = await getEmail();
-  if (!userId || !email) {
+  const user = await getSession();
+  if (!user) {
     state.errors.push(
       "You must be logged in to sign up, try refreshing the page, or logging out and back in again"
     );
     return state;
   }
-  const hackspaceUser = await service.dbClient.getUser(userId);
+  const hackspaceUser = await service.dbClient.getUser(user.id);
   if (hackspaceUser) {
     redirect("/members/subscription");
   }
 
   const formattedUser = {
-    id: userId,
-    email,
+    id: user.id,
+    email: user.email,
     ...Object.fromEntries(formData),
     signup_date: new Date(Date.now()).toISOString(),
     roles: [],

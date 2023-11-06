@@ -1,19 +1,19 @@
 "use server";
 
 import { MembershipApiService } from "../../lib/service/service";
-import { getUser } from "../../utils/session";
+import { getSession } from "../../api/auth/auth";
 
 async function getUserAndAmount(
   service: MembershipApiService,
   formData: FormData
 ) {
-  const userId = await getUser();
-  if (!userId) {
+  const user = await getSession();
+  if (!user) {
     throw new Error(
       "You must be logged in to sign up, try refreshing the page, or logging out and back in again"
     );
   }
-  const hackspaceUser = await service.dbClient.getUser(userId);
+  const hackspaceUser = await service.dbClient.getUser(user.id);
   if (!hackspaceUser) {
     throw new Error("You must be signed up to update your subscription");
   }
@@ -31,7 +31,7 @@ async function getUserAndAmount(
       `Subscription amount must be at least £${minimumSubscriptionAmountPounds}`
     );
   }
-  return { userId, amountInPounds };
+  return { userId: user.id, amountInPounds };
 }
 
 export const createSubscription = async (state: any, formData: FormData) => {
@@ -90,12 +90,13 @@ export const updateSubscription = async (state: any, formData: FormData) => {
 
 export const cancelSubscription = async (state: any, formData: FormData) => {
   try {
-    const service = new MembershipApiService();
-    const userId = await getUser();
-    if (!userId) {
+    const user = await getSession();
+    if (!user) {
       return { errors: ["You must be logged in to cancel your subscription"] };
     }
-    const subscription = await service.getActiveSubscriptionForUser(userId);
+    const service = new MembershipApiService();
+    const hackspaceUser = await service.dbClient.getUser(user.id);
+    const subscription = await service.getActiveSubscriptionForUser(user.id);
     await service.gocardless.cancelSubscription(subscription.id!);
     state.succeeded = true;
     state.errors = [];

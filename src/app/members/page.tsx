@@ -2,13 +2,13 @@ import { redirect } from "next/navigation";
 import Header from "../components/header/header";
 import Link from "next/link";
 import { MembershipApiService } from "../lib/service/service";
-import { getUser } from "../utils/session";
+import { getSession } from "../api/auth/auth";
 
 export default async function Profile() {
-  const userId = await getUser();
-  if (userId) {
+  const user = await getSession();
+  if (user) {
     const service = new MembershipApiService();
-    const hackspaceUser = await service.dbClient.getUser(userId);
+    const hackspaceUser = await service.dbClient.getUser(user.id);
     if (hackspaceUser) {
       return redirect("/members/account");
     }

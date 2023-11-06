@@ -1,47 +1,45 @@
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { MembershipApiService } from "../../lib/service/service";
 import Header from "../../components/header/header";
 import { redirect } from "next/navigation";
 import { Mandate, Subscription } from "gocardless-nodejs";
-import { getUser } from "../../utils/session";
+import { getSession } from "../../api/auth/auth";
 import AccountDetailsPage from "./account-details";
+import RequireLogin from "../../components/auth/require-login";
 
-export default withPageAuthRequired(
-  async function Profile() {
-    const service = new MembershipApiService();
-    const userId = await getUser();
-    if (!userId) {
-      return redirect("/members/signup");
-    }
-    const hackspaceUser = await service.dbClient.getUser(userId);
-    if (!hackspaceUser) {
-      return redirect("/members/signup");
-    }
-    const accountDetails = {
-      user: hackspaceUser,
-    };
+export default async function Profile() {
+  const user = await getSession();
+  if (!user) {
+    return <RequireLogin></RequireLogin>;
+  }
+  const service = new MembershipApiService();
+  const hackspaceUser = await service.dbClient.getUser(user.id);
 
-    let mandates: Mandate[] = [];
-    let subscriptions: Subscription[] = [];
-    if (accountDetails.user.gocardless_id) {
-      mandates = await service.gocardless.getMandatesByCustomer(
-        accountDetails.user.gocardless_id
-      );
-      subscriptions = await service.gocardless.getSubscriptionsByCustomer(
-        accountDetails.user.gocardless_id
-      );
-    }
+  if (!hackspaceUser) {
+    return redirect("/members/signup");
+  }
+  const accountDetails = {
+    user: hackspaceUser,
+  };
 
-    return (
-      <main>
-        <Header currentRoute="/members" />
-        <AccountDetailsPage
-          user={accountDetails.user}
-          mandates={mandates}
-          subscriptions={subscriptions}
-        ></AccountDetailsPage>
-      </main>
+  let mandates: Mandate[] = [];
+  let subscriptions: Subscription[] = [];
+  if (accountDetails.user.gocardless_id) {
+    mandates = await service.gocardless.getMandatesByCustomer(
+      accountDetails.user.gocardless_id
     );
-  },
-  { returnTo: "/members/account" }
-);
+    subscriptions = await service.gocardless.getSubscriptionsByCustomer(
+      accountDetails.user.gocardless_id
+    );
+  }
+
+  return (
+    <main>
+      <Header currentRoute="/members" />
+      <AccountDetailsPage
+        user={accountDetails.user}
+        mandates={mandates}
+        subscriptions={subscriptions}
+      ></AccountDetailsPage>
+    </main>
+  );
+}

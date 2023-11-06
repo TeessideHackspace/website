@@ -148,7 +148,6 @@ export class DataAccess {
   }
 
   async getRfidsForUser(userId: string): Promise<RfidTag[]> {
-    console.log("getRfidsForUser", userId);
     const result = await this.client.scan({
       TableName: RFID_TABLE,
       ScanFilter: {
@@ -158,7 +157,6 @@ export class DataAccess {
         },
       },
     });
-    console.log(result);
 
     if (!result || !result.Items) {
       return [];

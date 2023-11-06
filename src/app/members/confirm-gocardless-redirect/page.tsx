@@ -2,25 +2,28 @@ import { redirect } from "next/navigation";
 import { MembershipApiService } from "../../lib/service/service";
 import Header from "../../components/header/header";
 import Link from "next/link";
-import { getUser } from "../../utils/session";
+import { getSession } from "../../api/auth/auth";
+import RequireLogin from "../../components/auth/require-login";
 
 export default async function Page({
   searchParams,
 }: {
   searchParams: { redirect_flow_id: string };
 }) {
-  const userId = await getUser();
-  if (userId) {
-    const service = new MembershipApiService();
-    const redirectFlowId = searchParams.redirect_flow_id;
-    const confirmRedirectResponse = await service.completeRedirect(
-      userId,
-      redirectFlowId
-    );
-    if (confirmRedirectResponse.id) {
-      return redirect("/members/account");
-    }
+  const user = await getSession();
+  if (!user) {
+    return <RequireLogin></RequireLogin>;
   }
+  const service = new MembershipApiService();
+  const redirectFlowId = searchParams.redirect_flow_id;
+  const confirmRedirectResponse = await service.completeRedirect(
+    user.id,
+    redirectFlowId
+  );
+  if (confirmRedirectResponse.id) {
+    return redirect("/members/account");
+  }
+
   return (
     <main className="container">
       <Header currentRoute="/members" />

@@ -2,7 +2,7 @@ import "./globals.scss";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { SessionProvider } from "./components/auth/session-provider";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <UserProvider>
+      <SessionProvider>
         <body className={inter.className}>
           <div className="container">{children}</div>
           <div className="footer text-center text-white bg-primary mt-5">
@@ -35,7 +35,7 @@ export default function RootLayout({
             </p>
           </div>
         </body>
-      </UserProvider>
+      </SessionProvider>
     </html>
   );
 }

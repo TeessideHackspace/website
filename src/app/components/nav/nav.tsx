@@ -1,16 +1,21 @@
+"use server";
+
 import "./nav.scss";
 
 import React, { PropsWithChildren } from "react";
 import Link from "next/link";
-import Login from "../login";
+import Login from "../auth/login";
+import { getSession } from "../../api/auth/auth";
+import Logout from "../auth/logout";
 type NavbarProps = {
   currentRoute: string;
 };
-const Navbar = ({
+const Navbar = async ({
   children,
   currentRoute,
   ...props
 }: PropsWithChildren<NavbarProps>) => {
+  const user = await getSession();
   const links = [
     { href: "/", label: "Home" },
     { href: "/organisation", label: "Organisation" },
@@ -36,7 +41,7 @@ const Navbar = ({
             </li>
           ))}
         </ul>
-        <Login />
+        {user ? <Logout /> : <Login />}
       </div>
     </div>
   );
