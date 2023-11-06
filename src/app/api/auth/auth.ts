@@ -26,6 +26,7 @@ export const config = {
     async session({ session, token, user }) {
       if (session.user) {
         session.user.id = token.sub as string;
+        session.id_token = token.id_token as string;
       }
       return session;
     },
