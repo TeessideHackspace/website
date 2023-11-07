@@ -72,14 +72,12 @@ export class MembershipApiService {
     return subscription;
   }
 
-  async gocardlessRedirectUrl(userId: string, redirectUrl?: string) {
+  async gocardlessRedirectUrl(userId: string, redirectUrl: string) {
     const user = await this.dbClient.getUser(userId);
     if (!user) {
       throw new Error("User not found");
     }
-    const url =
-      redirectUrl ||
-      "https://www.teessidehackspace.org.uk/members#/signup-confirm";
+    const url = `${process.env.NEXTAUTH_URL}${redirectUrl}`;
     const token = createHash("sha256").update(userId).digest("base64");
     const redirect = await this.gocardless.client.redirectFlows.create({
       description: "Teesside Hackspace Membership",
