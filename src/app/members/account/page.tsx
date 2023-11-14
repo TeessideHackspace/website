@@ -5,6 +5,7 @@ import { Mandate, Subscription } from "gocardless-nodejs";
 import { getSession } from "../../api/auth/auth";
 import AccountDetailsPage from "./account-details";
 import RequireLogin from "../../components/auth/require-login";
+import MembersMenu from "../../components/members/menu";
 
 export default async function Profile() {
   const user = await getSession();
@@ -35,6 +36,7 @@ export default async function Profile() {
   return (
     <main>
       <Header currentRoute="/members" />
+      <MembersMenu currentRoute="/members/account" />
       <AccountDetailsPage
         user={accountDetails.user}
         mandates={mandates}

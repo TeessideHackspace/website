@@ -5,6 +5,7 @@ import { getSession } from "../../api/auth/auth";
 import AddRfidForm from "./form";
 import DeleteRfidForm from "./delete-form";
 import RequireLogin from "../../components/auth/require-login";
+import MembersMenu from "../../components/members/menu";
 
 export default async function Profile() {
   const user = await getSession();
@@ -43,6 +44,7 @@ export default async function Profile() {
   return (
     <main>
       <Header currentRoute="/members" />
+      <MembersMenu currentRoute="/members/rfid" />
       <div className="row">
         <AddRfidForm></AddRfidForm>
       </div>
