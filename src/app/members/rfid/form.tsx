@@ -63,7 +63,7 @@ const AddRfidForm = () => {
                   className="form-control"
                   name="name"
                   id="name"
-                  placeholder="15 (recommended minimum)"
+                  placeholder=""
                   defaultValue="Keyfob"
                 />
                 <label htmlFor="name">Name</label>

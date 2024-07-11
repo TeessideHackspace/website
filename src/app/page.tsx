@@ -1,3 +1,4 @@
+import { Accordion } from "react-bootstrap";
 import FacebookFeed from "./components/facebook-feed";
 import Header from "./components/header/header";
 import SlackInvite from "./components/slackinvite";
@@ -46,8 +47,8 @@ export default function Home() {
               more about the space
             </li>
             <li>
-              <a href="https://wiki.teessidehackspace.org.uk/wiki/Slack">
-                Chat to us on Slack
+              <a href="https://wiki.teessidehackspace.org.uk/Comms/Matrix">
+                Chat to us on Matrix
               </a>
             </li>
             <li>
@@ -57,13 +58,25 @@ export default function Home() {
               <a href="/organisation">About the organisation</a>
             </li>
           </ul>
-          <h3>Join us on Slack!</h3>
+          <h3>Join us on Matrix!</h3>
           <p>
             Come chat to us on{" "}
-            <a href="https://wiki.teessidehackspace.org.uk/wiki/Slack">Slack</a>
-            ! Enter your email address below to receive an invitation.
+            <a href="https://wiki.teessidehackspace.org.uk/Comms/Matrix">
+              Matrix
+            </a>
+            ! No need to become a member to join in, just{" "}
+            <a href="https://app.element.io/#/room/%23general%3Ateessidehackspace.org.uk?via=teessidehackspace.org.uk">
+              install the Element app
+            </a>{" "}
+            or{" "}
+            <a href="https://chat.teessidehackspace.org.uk">
+              preview in your browser
+            </a>{" "}
+            and login with your Teesside Hackspace account or create a new one.
           </p>
-          <SlackInvite />
+          <p>
+            <SlackInvite />
+          </p>
         </div>
         <div className="col">
           <h3>Social</h3>

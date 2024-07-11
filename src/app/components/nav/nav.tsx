@@ -20,6 +20,7 @@ const Navbar = async ({
     { href: "/", label: "Home" },
     { href: "/organisation", label: "Organisation" },
     { href: "/members", label: "Membership" },
+    { href: "https://chat.teessidehackspace.org.uk/", label: "Chat" },
     { href: "https://wiki.teessidehackspace.org.uk/", label: "Wiki" },
     { href: "/stats", label: "Stats" },
   ];
