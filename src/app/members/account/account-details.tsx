@@ -12,10 +12,12 @@ const AccountDetailsPage = ({
   user,
   mandates,
   subscriptions,
+  roles,
 }: {
   user: any;
   mandates: Mandate[];
   subscriptions: Subscription[];
+  roles: string[];
 }) => {
   function getMandateUi() {
     if (!mandates.length) {
@@ -70,10 +72,10 @@ const AccountDetailsPage = ({
   }
 
   function getRoles() {
-    if (!user.roles.length) {
+    if (!roles.length) {
       return;
     }
-    const roles = user.roles.map((role: string) => (
+    const rolesDom = roles.map((role: string) => (
       <span className="badge bg-info" key={role}>
         {role}
       </span>
@@ -81,7 +83,7 @@ const AccountDetailsPage = ({
     return (
       <div className="card card-body">
         <h4>Your Roles</h4>
-        <div>{roles}</div>
+        <div>{rolesDom}</div>
       </div>
     );
   }

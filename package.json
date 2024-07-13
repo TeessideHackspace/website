@@ -6,7 +6,8 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tools:migrate-roles": "npx tsx --env-file=.env.local ./tools/migrate-roles.ts"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.418.0",
@@ -16,6 +17,7 @@
     "gocardless-nodejs": "^3.14.0",
     "handlebars": "^4.7.8",
     "jdenticon": "^3.2.0",
+    "keycloak-admin": "^1.14.22",
     "next": "13.5.4",
     "next-auth": "^4.24.4",
     "react": "18.2.0",
@@ -36,6 +38,7 @@
     "postcss": "^8.4.30",
     "postcss-preset-mantine": "^1.7.0",
     "postcss-simple-vars": "^7.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "latest"
   }
 }

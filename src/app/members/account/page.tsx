@@ -18,6 +18,8 @@ export default async function Profile() {
   if (!hackspaceUser) {
     return redirect("/members/signup");
   }
+
+  const roles = await service.listRolesForUser(hackspaceUser.id);
   const accountDetails = {
     user: hackspaceUser,
   };
@@ -41,6 +43,7 @@ export default async function Profile() {
         user={accountDetails.user}
         mandates={mandates}
         subscriptions={subscriptions}
+        roles={roles}
       ></AccountDetailsPage>
     </main>
   );

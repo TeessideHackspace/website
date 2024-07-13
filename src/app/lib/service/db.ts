@@ -35,7 +35,6 @@ export interface UserDynamoModel extends UserDynamoKey {
   mandate_status: string;
   emergency_contact_first_name: string;
   emergency_contact_last_name: string;
-  roles: Array<string>;
   last_name: string;
   subscription_status: string;
   first_name: string;
@@ -68,7 +67,7 @@ export class DataAccess {
       return;
     }
     if (result.Item?.roles) {
-      result.Item.roles = [...result.Item.roles];
+      delete result.Item.roles;
     }
     return result.Item as unknown as UserDynamoModel;
   }
@@ -140,7 +139,7 @@ export class DataAccess {
     }
     result.Items = result.Items.map((item) => {
       if (item.roles) {
-        item.roles = [...item.roles];
+        delete item.roles;
       }
       return item;
     });

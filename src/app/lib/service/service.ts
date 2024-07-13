@@ -2,13 +2,16 @@ import { createHash } from "crypto";
 import { DataAccess } from "./db";
 import { GocardlessService } from "./gocardless";
 import { EmailClient } from "../email/email";
+import { Keycloak } from "./keycloak";
 
 const MINIMUM_SUBSCRIPTION_POUNDS = 5;
+const HACKSPACE_ROLES = ["member", "trustee"];
 
 export class MembershipApiService {
   public gocardless = new GocardlessService();
   public dbClient = new DataAccess();
   public email = new EmailClient();
+  public keycloak = new Keycloak();
   constructor() {}
 
   async completeRedirect(userId: string, redirectFlowId: string) {
@@ -129,6 +132,22 @@ export class MembershipApiService {
     return response;
   }
 
+  async getAllUserRoles(): Promise<Record<string, string[]>> {
+    const roles: Record<string, string[]> = {};
+    for (const role of HACKSPACE_ROLES) {
+      const users = await this.keycloak.findUsersWithRole(role);
+      for (const user of users) {
+        if (user.id) {
+          if (!roles[user.id]) {
+            roles[user.id] = [];
+          }
+          roles[user.id].push(role);
+        }
+      }
+    }
+    return roles;
+  }
+
   async getUserbyCustomer(customer: string) {
     const gocardlessCustomer = await this.gocardless.getCustomer(customer);
     if (!gocardlessCustomer.metadata?.hackspaceId) {
@@ -194,12 +213,20 @@ export class MembershipApiService {
     if (!user) {
       return false;
     }
-    const roles = user.roles.filter((role) => !remove.includes(role));
-    await this.dbClient.updateUser({
-      id: userId,
-      roles: Array.from(new Set([...roles, ...add])),
-    });
+    for (const role of add) {
+      await this.keycloak.addRealmRole(userId, role);
+    }
+    for (const role of remove) {
+      await this.keycloak.removeRealmRole(userId, role);
+    }
     return this.dbClient.getUser(userId);
+  }
+
+  async listRolesForUser(userId: string) {
+    const realmRoles = await this.keycloak.listRealmRoles(userId);
+    return realmRoles
+      .map((role) => role.name || "")
+      .filter((role) => HACKSPACE_ROLES.includes(role));
   }
 
   async handleCancelledMembership(id: string) {

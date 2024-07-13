@@ -38,10 +38,12 @@ export async function GET(
       }
     );
   }
+  const realmRoles = await service.keycloak.listRealmRoles(user.id);
+  const roles = realmRoles.map((role) => role.name);
   return Response.json({
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
-    roles: user.roles,
+    roles,
   });
 }

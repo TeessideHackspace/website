@@ -6,6 +6,8 @@ const Logout = () => {
   async function logout() {
     const session = await getSession();
     const idToken = session?.id_token;
+    console.log("idToken", session);
+    debugger;
     await signOut({
       callbackUrl: "/api/auth/federated-logout?id_token_hint=" + idToken,
     });

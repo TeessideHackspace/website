@@ -6,12 +6,12 @@ export async function GET(req: NextRequest) {
     console.warn("No JWT token found when calling /federated-logout endpoint,");
     return NextResponse.redirect(process.env.NEXTAUTH_URL as string, 302);
   }
-  if (token && token && process.env.KEYCLOAK_ISSUER) {
+  if (token && process.env.KEYCLOAK_URL) {
     const endsessionParams = new URLSearchParams({
       id_token_hint: token,
       post_logout_redirect_uri: process.env.NEXTAUTH_URL as string,
     });
-    const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/logout?${endsessionParams}`;
+    const url = `${process.env.KEYCLOAK_URL}/realms/master/protocol/openid-connect/logout?${endsessionParams}`;
     return Response.redirect(url, 302);
   }
   return NextResponse.redirect(process.env.NEXTAUTH_URL as string, 302);
