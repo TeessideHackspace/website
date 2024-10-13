@@ -6,7 +6,8 @@ import IconPrint from "../icon/print";
 import "./label-printer.scss";
 
 export default function LabelPrinter(props: { children: React.ReactNode }) {
-  const printerBaseUrl = "http://labelprinter.local:5000";
+  const printerBaseUrl =
+    "https://labelprinter.infrastructure.teessidehackspace.org.uk";
   const ref = useRef<HTMLDivElement>(null);
 
   async function print() {
