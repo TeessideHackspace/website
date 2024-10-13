@@ -1,0 +1,13 @@
+@import '../../variables.scss';
+.print-button {
+   &:hover {
+        svg {
+            fill: white;
+        }
+   }
+   svg {
+  
+        fill: $primary;
+   }
+    
+}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import Login from "../auth/login";
 import { getSession } from "../../api/auth/auth";
 import Logout from "../auth/logout";
+import AmIAtTheSpace from "../am-i-at-the-space";
 type NavbarProps = {
   currentRoute: string;
 };
@@ -31,6 +32,17 @@ const Navbar = async ({
     <div className="navbar navbar-expand-lg navbar-dark mt-4 mb-4">
       <div className="container-fluid">
         <ul className="navbar-nav">
+          <AmIAtTheSpace>
+            <li
+              key={`/kiosk`}
+              className={isActive("/kiosk") ? "nav-item active" : "nav-item"}
+            >
+              <Link className="nav-link" href={"/kiosk"}>
+                Kiosk
+              </Link>
+            </li>
+          </AmIAtTheSpace>
+
           {links.map(({ href, label }) => (
             <li
               key={`${href}${label}`}
