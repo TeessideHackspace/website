@@ -11,12 +11,13 @@ export default function DoNotHackLabel(props: {
           src="/logo.svg"
           className="flex-grow-1 "
           style={{
-            maxWidth: 150,
+            width: 150,
+            height: 150,
           }}
         />
         <div
           style={{
-            fontSize: 100,
+            fontSize: 90,
             fontWeight: "bold",
           }}
           className="ms-4"

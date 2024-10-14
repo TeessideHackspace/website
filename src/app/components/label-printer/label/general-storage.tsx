@@ -4,8 +4,10 @@ export default function GeneralStorageLabel(props: { name: string }) {
       <div className="d-flex ">
         <img
           src="/logo.svg"
+          className="flex-grow-1 "
           style={{
-            maxWidth: 150,
+            width: 150,
+            height: 150,
           }}
         />
         <div
