@@ -55,7 +55,7 @@ const SubscriptionForm = ({
                     className="form-control"
                     name="subscription_amount"
                     id="subscription_amount"
-                    placeholder="15 (recommended minimum)"
+                    placeholder="17 (recommended minimum)"
                     defaultValue={initialValue}
                   />
                   <label htmlFor="subscription_amount">Amount</label>

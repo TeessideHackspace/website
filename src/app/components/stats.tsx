@@ -200,8 +200,8 @@ export default function Stats({ stats }: { stats: StatsData }) {
             {`
             You'll get 24/7 access, a storage box for your projects, and warm
             fuzzy feelings for supporting us. Our recommended minimum
-            subscription is £15/month. For students, retirees or low income
-            members the minimum subscription is £5/month.`}
+            subscription is £17/month. For students, retirees or low income
+            members the minimum subscription is £6/month.`}
           </li>
           <li>
             {`If you're already a member,`}

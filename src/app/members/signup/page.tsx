@@ -38,10 +38,10 @@ export default async function Profile() {
             {` and can't spend more money on making the space more awesome
         until we're making a significant monthly surplus. Our recommended minimum
               subscription is `}
-            <strong>£15/month</strong>
+            <strong>£17/month</strong>
             {`. For students, retirees
               or low income members the minimum subscription is `}
-            <strong>£5/month</strong>.
+            <strong>£6/month</strong>.
           </p>
 
           <p>

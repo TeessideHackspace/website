@@ -4,7 +4,7 @@ import { GocardlessService } from "./gocardless";
 import { EmailClient } from "../email/email";
 import { Keycloak } from "./keycloak";
 
-const MINIMUM_SUBSCRIPTION_POUNDS = 5;
+const MINIMUM_SUBSCRIPTION_POUNDS = 6;
 const HACKSPACE_ROLES = ["member", "trustee"];
 
 export class MembershipApiService {

@@ -130,7 +130,7 @@ const SignupForm = () => {
                       type="number"
                       className="form-control"
                       name="subscription_amount"
-                      placeholder="15 (recommended minimum)"
+                      placeholder="17 (recommended minimum)"
                     />
                     <label htmlFor="subscription_amount">Amount</label>
                   </div>

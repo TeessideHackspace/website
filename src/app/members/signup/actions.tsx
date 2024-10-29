@@ -3,7 +3,7 @@ import { getSession } from "../../api/auth/auth";
 import { MembershipApiService } from "../../lib/service/service";
 import { redirect } from "next/navigation";
 
-const MIN_MONTH = 5;
+const MIN_MONTH = 6;
 
 const requiredFields = {
   first_name: "First name",

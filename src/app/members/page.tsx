@@ -33,8 +33,8 @@ export default async function Profile() {
           {`. To avoid dipping further
           into our cash reserves we can't spend more money on making the space
           more awesome until we're making a significant monthly surplus. Our
-          recommended minimum subscription is £15/month. For students, retirees
-          or low income members the minimum subscription is £5/month.`}
+          recommended minimum subscription is £17/month. For students, retirees
+          or low income members the minimum subscription is £6/month.`}
         </p>
         <Link href="/members/signup">
           <button className="btn btn-primary">Become a member</button>
