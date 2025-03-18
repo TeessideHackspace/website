@@ -9,12 +9,16 @@ export default async function Page() {
   if (user) {
     const service = new MembershipApiService();
     const redirectPage = "/members/confirm-gocardless-redirect";
-    const redirectUrl = await service.gocardlessRedirectUrl(
-      user.id,
-      redirectPage
-    );
-    if (redirectUrl) {
-      return redirect(redirectUrl);
+    try {
+      const redirectUrl = await service.gocardlessRedirectUrl(
+        user.id,
+        redirectPage
+      );
+      if (redirectUrl) {
+        return redirect(redirectUrl);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
   return (

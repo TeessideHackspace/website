@@ -20,13 +20,9 @@ const AccountDetailsPage = ({
   roles: string[];
 }) => {
   function getMandateUi() {
-    if (!mandates.length) {
-      return (
-        <Link href="/members/setup-direct-debit">
-          <button className="btn btn-primary">Set up your Direct Debit</button>
-        </Link>
-      );
-    }
+    const validMandates = mandates.filter(
+      (mandate) => mandate.status === "active" || mandate.status === "submitted"
+    );
 
     let mandatesUi = mandates.map((mandate) => (
       <DirectDebitMandate mandate={mandate} key={mandate.id} />
@@ -35,6 +31,13 @@ const AccountDetailsPage = ({
       <div className="p-2">
         <h4>Direct Debit Mandate</h4>
         {mandatesUi}
+        {!validMandates.length && (
+          <Link href="/members/setup-direct-debit" className="mt-3">
+            <button className="btn btn-primary">
+              Set up your Direct Debit
+            </button>
+          </Link>
+        )}
       </div>
     );
   }

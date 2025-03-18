@@ -24,7 +24,7 @@ const DirectDebitMandate = ({ mandate }: { mandate: Mandate }) => {
   const date = new Date(mandate.created_at!).toLocaleDateString();
   return (
     <div
-      className={`card border-${getStatusClass(mandate.status)}`}
+      className={`card border-${getStatusClass(mandate.status)} my-2`}
       key={mandate.id}
     >
       <div className="card-header d-flex justify-content-between">
