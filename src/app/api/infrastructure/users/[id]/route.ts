@@ -39,10 +39,13 @@ export async function GET(
     );
   }
   const realmRoles = await service.keycloak.listRealmRoles(user.id);
+  const keycloakUser = await service.keycloak.getUser(user.id);
+  const nick = keycloakUser.attributes?.nickName?.[0] || user.first_name;
   const roles = realmRoles.map((role) => role.name);
   return Response.json({
     first_name: user.first_name,
     last_name: user.last_name,
+    nick,
     email: user.email,
     roles,
   });
