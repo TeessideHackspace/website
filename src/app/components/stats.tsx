@@ -204,7 +204,7 @@ export default function Stats({ stats }: { stats: StatsData }) {
             members the minimum subscription is £6/month.`}
           </li>
           <li>
-            {`If you're already a member,`}
+            {`If you're already a member, `}
             <strong className="large">
               increase your monthly subscription payment
             </strong>
