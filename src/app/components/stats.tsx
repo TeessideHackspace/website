@@ -15,23 +15,23 @@ export default function Stats({ stats }: { stats: StatsData }) {
   const expenses = [
     {
       label: "Rent",
-      v: 900,
+      v: 1054.10,
     },
-    {
-      label: "Service Charge",
-      v: 63.24,
-    },
-    {
-      label: "Building Insurance",
-      v: 34.79,
-    },
+    // {
+    //   label: "Service Charge",
+    //   v: 63.24,
+    // },
+    // {
+    //   label: "Building Insurance",
+    //   v: 34.79,
+    // },
     {
       label: "Liability Insurance",
       v: 28,
     },
     {
       label: "Accounting",
-      v: 37,
+      v: 50,
     },
     {
       label: "Electricity",
@@ -43,19 +43,19 @@ export default function Stats({ stats }: { stats: StatsData }) {
     },
     {
       label: "Water",
-      v: 22.16,
+      v: 21,
     },
     {
       label: "Internet",
-      v: 43.2,
+      v: 42,
     },
     {
       label: "Hosting & Email",
-      v: 8.22,
+      v: 125,
     },
     {
       label: "Information Commissioner's Office registration",
-      v: 2.5,
+      v: 3.91,
     },
   ];
   const totalExpense = expenses.reduce(function (p, c) {
